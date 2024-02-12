@@ -446,6 +446,7 @@ qr_idx(:) = 0.d0
 qr_ave_idx(:) = 0.d0
 qr_ave_temp_idx(:) = 0.d0
 
+write(*,*) "Array Initialization 1"
 hr_idx(:) = 0.d0
 vr_idx(:) = 0.d0
 fr(:) = 0.d0
@@ -458,6 +459,7 @@ kr4(:) = 0.d0
 kr5(:) = 0.d0
 kr6(:) = 0.d0
 
+write(*,*) "Array Initialization 2"
 qs_ave(:,:,:) = 0.d0
 qs_idx(:,:) = 0.d0
 qs_ave_idx(:,:) = 0.d0
@@ -473,6 +475,7 @@ ks4(:) = 0.d0
 ks5(:) = 0.d0
 ks6(:) = 0.d0
 
+write(*,*) "Array Initialization 3"
 qg_ave(:,:,:) = 0.d0
 qg_idx(:,:) = 0.d0
 qg_ave_idx(:,:) = 0.d0
@@ -484,6 +487,7 @@ hg_err(:) = 0.d0
 gampt_ff_idx(:) = 0.d0
 gampt_f_idx(:) = 0.d0
 
+write(*,*) "Array Initialization 4"
 rain_i(:) = 0
 rain_j(:) = 0
 ksv(:) = 0.d0
