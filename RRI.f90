@@ -533,9 +533,11 @@ do
  enddo
  if( ios.lt.0 ) exit
  tt = tt + 1
+ write(*,*) "Reading Rainfall data record #", tt
 enddo
 tt_max_rain = tt - 1
 
+write(*,*) "Allocate Rainfall data array"
 allocate( t_rain(0:tt_max_rain), qp(0:tt_max_rain, ny_rain, nx_rain), qp_t(ny, nx) )
 rewind(11)
 
