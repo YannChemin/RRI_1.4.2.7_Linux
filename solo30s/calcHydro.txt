@@ -1,0 +1,3 @@
+./location.txt
+./out/qr_
+./disc_

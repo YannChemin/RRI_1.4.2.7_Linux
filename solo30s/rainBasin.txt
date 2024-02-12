@@ -1,0 +1,8 @@
+./rain/rain.dat
+./topo/adem.txt
+110.2d0
+-8.3d0
+0.00833333d0 0.00833333d0
+./rain/rain_hyeto.txt
+./rain/rain_dist.txt
+./rain/rain_cum.txt
