@@ -246,15 +246,21 @@ enddo
 write(*,*) "num_of_cell : ", num_of_cell
 write(*,*) "total area [km2] : ", num_of_cell * area / (10.d0 ** 6.0d0)
 
+write(*,*) "River index setting"
 ! river index setting
 call riv_idx_setting
+
+write(*,*) "Slope index setting"
 
 ! slope index setting
 call slo_idx_setting
 
+write(*,*) "Reading Dam File"
+
 ! reading dam file
 call dam_read
 
+write(*,*) "Allocate Initial conditions"
 ! initial condition
 allocate(hs(ny, nx), hr(ny, nx), hg(ny, nx), gampt_ff(ny, nx))
 allocate(gampt_f(ny, nx), qrs(ny, nx))
@@ -276,6 +282,7 @@ where(domain.eq.2) hs = 0.d0
 ! if init_slo_switch = 1 => read from file
 
 if(init_slo_switch .eq. 1) then
+ write(*,*) "Init Slope Switch"
 
  allocate( inith(ny, nx) )
  inith = 0.d0
@@ -294,6 +301,7 @@ endif
 ! if init_riv_switch = 1 => read from file
 
 if(init_riv_switch .eq. 1) then
+ write(*,*) "Init River Switch"
 
  allocate( inith(ny, nx) )
  inith = 0.d0
@@ -312,6 +320,7 @@ endif
 ! if init_gw_switch = 1 => read from file
 
 if(init_gw_switch .eq. 1) then
+ write(*,*) "Init GW Switch"
 
  allocate( inith(ny, nx) )
  inith = 0.d0
@@ -329,6 +338,7 @@ endif
 ! if init_gampt_ff_switch = 1 => read from file
 
 if(init_gampt_ff_switch .eq. 1) then
+ write(*,*) "Init GAMPT FF Switch"
 
  allocate( inith(ny, nx) )
  inith = 0.d0
@@ -343,6 +353,7 @@ if(init_gampt_ff_switch .eq. 1) then
 
 endif
 
+write(*,*) "Boundary conditions"
 ! boundary conditions
 call read_bound
 
