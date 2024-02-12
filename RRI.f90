@@ -528,10 +528,10 @@ open( 11, file = rainfile, status = 'old' )
 tt = 0
 do
  read(11, *, iostat = ios) t, nx_rain, ny_rain
+ if( ios.lt.0 ) exit
  do i = 1, ny_rain
   read(11, *, iostat = ios) (rdummy, j = 1, nx_rain)
  enddo
- if( ios.lt.0 ) exit
  tt = tt + 1
  write(*,*) "Reading Rainfall data record #", tt
 enddo
