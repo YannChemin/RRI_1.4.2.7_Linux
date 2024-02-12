@@ -360,6 +360,7 @@ call read_bound
 ! div file
 div_id_max = 0
 if( div_switch.eq.1 ) then
+ write(*,*) "Init Div Switch"
  open( 20, file = divfile, status = "old" )
  do
   read(20, *, iostat = ios) div_org_i, div_org_j, div_dest_i, div_dest_j
@@ -391,6 +392,7 @@ endif
 
 ! hydro file
 if( hydro_switch .eq. 1 ) then
+ write(*,*) "Init Hydro Switch"
  open( 5, file = location_file, status = "old")
  open(1012, file = hydro_file )
  open(1013, file = hydro_hr_file )
@@ -409,29 +411,35 @@ if( hydro_switch .eq. 1 ) then
  close(5)
 endif
 
+write(*,*) "Dynamic Allocation"
 ! dynamic allocation
 allocate (qs_ave(i4, ny, nx), qr_ave(ny, nx), qg_ave(i4, ny, nx))
 
+write(*,*) "Dynamic Allocation 1"
 allocate (qr_idx(riv_count), qr_ave_idx(riv_count), qr_ave_temp_idx(riv_count), hr_idx(riv_count))
 allocate (fr(riv_count), vr_temp(riv_count), hr_err(riv_count), vr_err(riv_count))
 allocate (vr_idx(riv_count))
 allocate (kr2(riv_count), kr3(riv_count), kr4(riv_count), kr5(riv_count), kr6(riv_count))
 
+write(*,*) "Dynamic Allocation 2"
 allocate (qs_idx(i4, slo_count), qs_ave_idx(i4, slo_count), qs_ave_temp_idx(i4, slo_count), hs_idx(slo_count))
 allocate (qp_t_idx(slo_count))
 allocate (fs(slo_count), hs_temp(slo_count), hs_err(slo_count))
 allocate (ks2(slo_count), ks3(slo_count), ks4(slo_count), ks5(slo_count), ks6(slo_count))
 
+write(*,*) "Dynamic Allocation 3"
 allocate (qg_idx(i4, slo_count), qg_ave_idx(i4, slo_count), qg_ave_temp_idx(i4, slo_count), hg_idx(slo_count))
 allocate (fg(slo_count), hg_temp(slo_count), hg_err(slo_count))
 allocate (kg2(slo_count), kg3(slo_count), kg4(slo_count), kg5(slo_count), kg6(slo_count))
 allocate (gampt_ff_idx(slo_count), gampt_f_idx(slo_count))
 
+write(*,*) "Dynamic Allocation 4"
 allocate (rain_i(ny), rain_j(nx))
 allocate (qe_t_idx(slo_count))
 allocate (evp_i(ny), evp_j(nx))
 allocate (aevp(ny, nx), aevp_tsas(slo_count), exfilt_hs_tsas(slo_count), rech_hs_tsas(slo_count))
 
+write(*,*) "Array Initialization"
 ! array initialization
 qr_ave(:,:) = 0.d0
 qr_idx(:) = 0.d0
