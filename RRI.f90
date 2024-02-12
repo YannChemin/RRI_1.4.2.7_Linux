@@ -496,12 +496,14 @@ aevp_tsas(:) = 0.d0
 exfilt_hs_tsas(:) = 0.d0
 rech_hs_tsas(:) = 0.d0
 
+write(*,*) "GW initial setting"
 ! gw initial setting
 if(init_gw_switch .ne. 1) then
  call hg_init( hg_idx )
  call sub_slo_idx2ij( hg_idx, hg )
 endif
 
+write(*,*) "Initial storage calculation"
 ! initial storage calculation
 rain_sum = 0.d0
 aevp_sum = 0.d0
@@ -515,6 +517,7 @@ sinit = ss + sr + si + sg
 write(1000, '(1000e15.7)') rain_sum, pevp_sum, aevp_sum, sout, ss + sr + si + sg, &
   (rain_sum - aevp_sum - sout - (ss + sr + si + sg) + sinit), ss, sr, si, sg
 
+write(*,*) "Reading Rainfall data"
 ! reading rainfall data
 open( 11, file = rainfile, status = 'old' )
 
