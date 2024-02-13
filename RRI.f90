@@ -107,7 +107,7 @@ if( land_switch.eq.1 ) then
 endif
 
 ! land : 1 ... num_of_landuse
-write(*,*) "num_of_landuse : ", num_of_landuse
+!write(*,*) "num_of_landuse : ", num_of_landuse
 where( land .le. 0 .or. land .gt. num_of_landuse ) land = num_of_landuse
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -150,7 +150,7 @@ else
  dx = (d1 + d2) / 2.d0 / real(nx)
  dy = (d3 + d4) / 2.d0 / real(ny)
 endif
-write(*,*) "dx [m] : ", dx, "dy [m] : ", dy
+!write(*,*) "dx [m] : ", dx, "dy [m] : ", dy
 
 ! length and area of each cell
 length = sqrt(dx * dy)
@@ -243,24 +243,24 @@ do i = 1, ny
   endif
  enddo
 enddo
-write(*,*) "num_of_cell : ", num_of_cell
-write(*,*) "total area [km2] : ", num_of_cell * area / (10.d0 ** 6.0d0)
+!write(*,*) "num_of_cell : ", num_of_cell
+!write(*,*) "total area [km2] : ", num_of_cell * area / (10.d0 ** 6.0d0)
 
-write(*,*) "River index setting"
+!write(*,*) "River index setting"
 ! river index setting
 call riv_idx_setting
 
-write(*,*) "Slope index setting"
+!write(*,*) "Slope index setting"
 
 ! slope index setting
 call slo_idx_setting
 
-write(*,*) "Reading Dam File"
+!write(*,*) "Reading Dam File"
 
 ! reading dam file
 call dam_read
 
-write(*,*) "Allocate Initial conditions"
+!write(*,*) "Allocate Initial conditions"
 ! initial condition
 allocate(hs(ny, nx), hr(ny, nx), hg(ny, nx), gampt_ff(ny, nx))
 allocate(gampt_f(ny, nx), qrs(ny, nx))
@@ -282,7 +282,7 @@ where(domain.eq.2) hs = 0.d0
 ! if init_slo_switch = 1 => read from file
 
 if(init_slo_switch .eq. 1) then
- write(*,*) "Init Slope Switch"
+ !write(*,*) "Init Slope Switch"
 
  allocate( inith(ny, nx) )
  inith = 0.d0
@@ -301,7 +301,7 @@ endif
 ! if init_riv_switch = 1 => read from file
 
 if(init_riv_switch .eq. 1) then
- write(*,*) "Init River Switch"
+ !write(*,*) "Init River Switch"
 
  allocate( inith(ny, nx) )
  inith = 0.d0
@@ -320,7 +320,7 @@ endif
 ! if init_gw_switch = 1 => read from file
 
 if(init_gw_switch .eq. 1) then
- write(*,*) "Init GW Switch"
+ !write(*,*) "Init GW Switch"
 
  allocate( inith(ny, nx) )
  inith = 0.d0
@@ -338,7 +338,7 @@ endif
 ! if init_gampt_ff_switch = 1 => read from file
 
 if(init_gampt_ff_switch .eq. 1) then
- write(*,*) "Init GAMPT FF Switch"
+ !write(*,*) "Init GAMPT FF Switch"
 
  allocate( inith(ny, nx) )
  inith = 0.d0
@@ -353,21 +353,21 @@ if(init_gampt_ff_switch .eq. 1) then
 
 endif
 
-write(*,*) "Boundary conditions"
+!write(*,*) "Boundary conditions"
 ! boundary conditions
 call read_bound
 
 ! div file
 div_id_max = 0
 if( div_switch.eq.1 ) then
- write(*,*) "Init Div Switch"
+ !write(*,*) "Init Div Switch"
  open( 20, file = divfile, status = "old" )
  do
   read(20, *, iostat = ios) div_org_i, div_org_j, div_dest_i, div_dest_j
   if(ios .ne. 0) exit
   div_id_max = div_id_max + 1
  enddo
- write(*,*) "div_id_max : ", div_id_max
+ !write(*,*) "div_id_max : ", div_id_max
  allocate( div_org_idx(div_id_max), div_dest_idx(div_id_max), div_rate(div_id_max) )
  rewind(20)
 
@@ -376,7 +376,7 @@ if( div_switch.eq.1 ) then
   div_org_idx(k) = riv_ij2idx( div_org_i, div_org_j )
   div_dest_idx(k) = riv_ij2idx( div_dest_i, div_dest_j )
  enddo
- write(*,*) "done: reading div file"
+ !write(*,*) "done: reading div file"
  close(20)
 endif
 
@@ -392,7 +392,7 @@ endif
 
 ! hydro file
 if( hydro_switch .eq. 1 ) then
- write(*,*) "Init Hydro Switch"
+ !write(*,*) "Init Hydro Switch"
  open( 5, file = location_file, status = "old")
  open(1012, file = hydro_file )
  open(1013, file = hydro_hr_file )
@@ -411,42 +411,42 @@ if( hydro_switch .eq. 1 ) then
  close(5)
 endif
 
-write(*,*) "Dynamic Allocation"
+!write(*,*) "Dynamic Allocation"
 ! dynamic allocation
 allocate (qs_ave(i4, ny, nx), qr_ave(ny, nx), qg_ave(i4, ny, nx))
 
-write(*,*) "Dynamic Allocation 1"
+!write(*,*) "Dynamic Allocation 1"
 allocate (qr_idx(riv_count), qr_ave_idx(riv_count), qr_ave_temp_idx(riv_count), hr_idx(riv_count))
 allocate (fr(riv_count), vr_temp(riv_count), hr_err(riv_count), vr_err(riv_count))
 allocate (vr_idx(riv_count))
 allocate (kr2(riv_count), kr3(riv_count), kr4(riv_count), kr5(riv_count), kr6(riv_count))
 
-write(*,*) "Dynamic Allocation 2"
+!write(*,*) "Dynamic Allocation 2"
 allocate (qs_idx(i4, slo_count), qs_ave_idx(i4, slo_count), qs_ave_temp_idx(i4, slo_count), hs_idx(slo_count))
 allocate (qp_t_idx(slo_count))
 allocate (fs(slo_count), hs_temp(slo_count), hs_err(slo_count))
 allocate (ks2(slo_count), ks3(slo_count), ks4(slo_count), ks5(slo_count), ks6(slo_count))
 
-write(*,*) "Dynamic Allocation 3"
+!write(*,*) "Dynamic Allocation 3"
 allocate (qg_idx(i4, slo_count), qg_ave_idx(i4, slo_count), qg_ave_temp_idx(i4, slo_count), hg_idx(slo_count))
 allocate (fg(slo_count), hg_temp(slo_count), hg_err(slo_count))
 allocate (kg2(slo_count), kg3(slo_count), kg4(slo_count), kg5(slo_count), kg6(slo_count))
 allocate (gampt_ff_idx(slo_count), gampt_f_idx(slo_count))
 
-write(*,*) "Dynamic Allocation 4"
+!write(*,*) "Dynamic Allocation 4"
 allocate (rain_i(ny), rain_j(nx))
 allocate (qe_t_idx(slo_count))
 allocate (evp_i(ny), evp_j(nx))
 allocate (aevp(ny, nx), aevp_tsas(slo_count), exfilt_hs_tsas(slo_count), rech_hs_tsas(slo_count))
 
-write(*,*) "Array Initialization"
+!write(*,*) "Array Initialization"
 ! array initialization
 qr_ave(:,:) = 0.d0
 qr_idx(:) = 0.d0
 qr_ave_idx(:) = 0.d0
 qr_ave_temp_idx(:) = 0.d0
 
-write(*,*) "Array Initialization 1"
+!write(*,*) "Array Initialization 1"
 hr_idx(:) = 0.d0
 vr_idx(:) = 0.d0
 fr(:) = 0.d0
@@ -459,7 +459,7 @@ kr4(:) = 0.d0
 kr5(:) = 0.d0
 kr6(:) = 0.d0
 
-write(*,*) "Array Initialization 2"
+!write(*,*) "Array Initialization 2"
 qs_ave(:,:,:) = 0.d0
 qs_idx(:,:) = 0.d0
 qs_ave_idx(:,:) = 0.d0
@@ -475,7 +475,7 @@ ks4(:) = 0.d0
 ks5(:) = 0.d0
 ks6(:) = 0.d0
 
-write(*,*) "Array Initialization 3"
+!write(*,*) "Array Initialization 3"
 qg_ave(:,:,:) = 0.d0
 qg_idx(:,:) = 0.d0
 qg_ave_idx(:,:) = 0.d0
@@ -487,7 +487,7 @@ hg_err(:) = 0.d0
 gampt_ff_idx(:) = 0.d0
 gampt_f_idx(:) = 0.d0
 
-write(*,*) "Array Initialization 4"
+!write(*,*) "Array Initialization 4"
 rain_i(:) = 0
 rain_j(:) = 0
 ksv(:) = 0.d0
@@ -500,14 +500,14 @@ aevp_tsas(:) = 0.d0
 exfilt_hs_tsas(:) = 0.d0
 rech_hs_tsas(:) = 0.d0
 
-write(*,*) "GW initial setting"
+!write(*,*) "GW initial setting"
 ! gw initial setting
 if(init_gw_switch .ne. 1) then
  call hg_init( hg_idx )
  call sub_slo_idx2ij( hg_idx, hg )
 endif
 
-write(*,*) "Initial storage calculation"
+!write(*,*) "Initial storage calculation"
 ! initial storage calculation
 rain_sum = 0.d0
 aevp_sum = 0.d0
@@ -521,7 +521,7 @@ sinit = ss + sr + si + sg
 write(1000, '(1000e15.7)') rain_sum, pevp_sum, aevp_sum, sout, ss + sr + si + sg, &
   (rain_sum - aevp_sum - sout - (ss + sr + si + sg) + sinit), ss, sr, si, sg
 
-write(*,*) "Reading Rainfall data"
+!write(*,*) "Reading Rainfall data"
 ! reading rainfall data
 open( 11, file = rainfile, status = 'old' )
 
@@ -533,15 +533,15 @@ do
   read(11, *, iostat = ios) (rdummy, j = 1, nx_rain)
  enddo
  tt = tt + 1
- write(*,*) "Reading Rainfall data record #", tt
+ !write(*,*) "Reading Rainfall data record #", tt
 enddo
 tt_max_rain = tt - 1
 
-write(*,*) "Allocate Rainfall data array"
+!write(*,*) "Allocate Rainfall data array"
 allocate( t_rain(0:tt_max_rain), qp(0:tt_max_rain, ny_rain, nx_rain), qp_t(ny, nx) )
 rewind(11)
 
-write(*,*) tt_max_rain, nx_rain, ny_rain
+!write(*,*) tt_max_rain, nx_rain, ny_rain
 
 qp = 0.d0
 qp_t = 0.d0 ! added by T.Sayamaa on Dec 7, 2022 v1.4.2.7
@@ -562,7 +562,7 @@ do i = 1, ny
 enddo
 close(11)
 
-write(*,*) "done: reading rain file"
+!write(*,*) "done: reading rain file"
 
 ! reading evp data
 if( evp_switch .ne. 0 ) then
@@ -582,7 +582,7 @@ if( evp_switch .ne. 0 ) then
  allocate( t_evp(0:tt_max_evp), qe(0:tt_max_evp, ny_evp, nx_evp), qe_t(ny, nx) )
  rewind(11)
 
- write(*,*) "done: reading evp file"
+ !write(*,*) "done: reading evp file"
 
  qe = 0.d0
  do tt = 0, tt_max_evp
@@ -722,7 +722,7 @@ do t = 1, maxt
    ddt = max( safety * ddt * (errmax ** pshrnk), 0.5d0 * ddt )
    ddt = max( ddt, ddt_min_riv ) ! added on Jan 7, 2021
    ddt_chk_riv = ddt
-   write(*,*) "shrink (riv): ", ddt, errmax, maxloc( vr_err )
+   !write(*,*) "shrink (riv): ", ddt, errmax, maxloc( vr_err )
    if(ddt.eq.0) stop 'stepsize underflow'
    if(dam_switch .eq. 1 ) dam_vol_temp(:) = 0.d0
    go to 1
@@ -950,7 +950,7 @@ do t = 1, maxt
    ddt = max( safety * ddt * (errmax ** pshrnk), 0.5d0 * ddt )
    ddt = max( ddt, ddt_min_slo ) ! added on Jan 7, 2021
    ddt_chk_slo = ddt
-   write(*,*) "shrink (gw): ", ddt, errmax, maxloc( hg_err )
+   !write(*,*) "shrink (gw): ", ddt, errmax, maxloc( hg_err )
    if(ddt.eq.0) stop 'stepsize underflow'
    go to 5
   else
@@ -1016,8 +1016,8 @@ do t = 1, maxt
  call sub_slo_ij2idx( hs, hs_idx )
  call sub_slo_ij2idx( hg, hg_idx )
 
- write(*,*) "max hr: ", maxval(hr), "loc : ", maxloc(hr)
- write(*,*) "max hs: ", maxval(hs), "loc : ", maxloc(hs)
+ !write(*,*) "max hr: ", maxval(hr), "loc : ", maxloc(hr)
+ !write(*,*) "max hs: ", maxval(hs), "loc : ", maxloc(hs)
  if(gw_switch .eq. 1) write(*,*) "max hg: ", maxval(hg), "loc : ", maxloc(hg)
 
  !******* OUTPUT *****************************************
@@ -1035,7 +1035,7 @@ do t = 1, maxt
  ! open output files
  if( t .eq. out_next ) then
 
-  write(*,*) "OUTPUT :", t, time
+  !write(*,*) "OUTPUT :", t, time
 
   tt = tt + 1
   out_next = nint((tt+1) * out_dt)
