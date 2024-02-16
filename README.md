@@ -1,8 +1,28 @@
 # RRI_1.4.2.7_Linux
 
-To compile
+To compile as is:
 
 ~~~shell
+make clean
+make mod
+make
+~~~
+
+To compile as debug (full terminal info):
+
+~~~shell
+cp debug/RRI.f90 .
+cp debug/RRI_Read.f90 .
+make clean
+make mod
+make
+~~~
+
+To compile as operational (no terminal info):
+
+~~~shell
+cp operational/RRI.f90 .
+cp operational/RRI_Read.f90 .
 make clean
 make mod
 make
