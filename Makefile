@@ -7,7 +7,9 @@ OBJECT = RRI_Mod.o RRI_Mod2.o RRI_Mod_Dam.o RRI_Mod_Tecout.o RRI.o RRI_Bound.o R
 F90 = gfortran
 
 #FFLAGS = -O -qopenmp
-FFLAGS = -O3 -fopenmp
+#FFLAGS = -O3 -fopenmp
+# OFFLOADING
+FFLAGS = -O3 -fopenmp -foffload=-lgfortran
 
 INCLDIR = .
 #INCLDIR = 
