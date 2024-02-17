@@ -42,3 +42,27 @@ or compile + run
 ~~~shell
 bash ./compile.sh
 ~~~
+
+The same type of modifications can be done to the type of parallelisation
+
+To compile with standard OpenMP:
+
+~~~shell
+cp openmp/RRI_GW.f90 .
+cp openmp/RRI_Riv.f90 .
+cp openmp/RRI_Slope.f90 .
+make clean
+make mod
+make
+~~~
+
+To compile with OpenMP offloading to GPU (experimental):
+
+~~~shell
+cp gpuoffloading/RRI_GW.f90 .
+cp gpuoffloading/RRI_Riv.f90 .
+cp gpuoffloading/RRI_Slope.f90 .
+make clean
+make mod
+make
+~~~
